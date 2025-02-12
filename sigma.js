@@ -5,9 +5,6 @@ function p() {
             const textBox = document.createElement("textarea");
             const keysDown = {};
             let offsetX, offsetY, isDragging = false;
-            function getCode() {
-                return textBox.innerHTML;
-            }
             uBlockExploit.style.display = "block";
             uBlockExploit.style.position = "fixed";
             uBlockExploit.style.background = "white";
@@ -20,8 +17,9 @@ function p() {
             textBox.style.outline = "none";
             textBox.style.resize = "none";
             textBox.style.fontFamily = "Monospace";
+            textBox.id = "stupidPieceOfGarbageEditor";
             textBox.wrap = "off";
-            textBox.innerText = `console.log("Hello world!")`;
+            textBox.value = `console.log("Hello world!")`;
             document.body.appendChild(uBlockExploit);
             uBlockExploit.appendChild(textBox);
             uBlockExploit.addEventListener("mousedown", (e) => {
@@ -41,7 +39,7 @@ function p() {
             document.addEventListener("keyup", event => {
                 keysDown[event.code] = false;
                 if ( event.which == 90 & keysDown["AltLeft"] == true ) {
-                    eval(getCode());
+                    eval(document.getElementById("stupidPieceOfGarbageEditor").value);
                 }
             });
             document.addEventListener("mouseup", () => isDragging = false);
