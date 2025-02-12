@@ -29,8 +29,8 @@ function p() {
             });
             document.addEventListener("mousemove", (e) => {
                 if ( isDragging & keysDown["AltLeft"] == true ) {
-                    uBlockExploit.style.left = `${e.clientX - offsetX}px`;
-                    uBlockExploit.style.top = `${e.clientY - offsetY}px`;
+                    uBlockExploit.style.left = `\${e.clientX - offsetX\}px`;
+                    uBlockExploit.style.top = `\${e.clientY - offsetY\}px`;
                 }
             });
             document.addEventListener("keydown", (event) => {
@@ -39,7 +39,11 @@ function p() {
             document.addEventListener("keyup", event => {
                 keysDown[event.code] = false;
                 if ( event.which == 90 & keysDown["AltLeft"] == true ) {
-                    eval(document.getElementById("stupidPieceOfGarbageEditor").value);
+                    var scriptElm = document.createElement('script');
+                    scriptElm.setAttribute('class', 'class-name');
+                    var inlineCode = document.createTextNode(document.getElementById("stupidPieceOfGarbageEditor").value);
+                    scriptElm.appendChild(inlineCode); 
+                    document.body.appendChild(scriptElm);
                 }
             });
             document.addEventListener("mouseup", () => isDragging = false);
