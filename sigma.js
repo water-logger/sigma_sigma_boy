@@ -5,6 +5,7 @@ function p() {
             const textBox = document.createElement("textarea");
             const keysDown = {};
             let offsetX, offsetY, isDragging = false;
+            
             uBlockExploit.style.display = "block";
             uBlockExploit.style.position = "fixed";
             uBlockExploit.style.background = "white";
@@ -16,28 +17,36 @@ function p() {
             textBox.style.height = "100%";
             textBox.style.outline = "none";
             textBox.style.resize = "none";
+            textBox.style.top = "20px";
             textBox.style.fontFamily = "Monospace";
             textBox.id = "stupidPieceOfGarbageEditor";
             textBox.wrap = "off";
             textBox.value = `console.log("Hello world!")`;
+
             document.body.appendChild(uBlockExploit);
             uBlockExploit.appendChild(textBox);
+
             uBlockExploit.addEventListener("mousedown", (e) => {
                 isDragging = true;
+
                 offsetX = e.clientX - uBlockExploit.offsetLeft;
                 offsetY = e.clientY - uBlockExploit.offsetTop;
             });
+
             document.addEventListener("mousemove", (e) => {
                 if ( isDragging & keysDown["AltLeft"] == true ) {
-                    uBlockExploit.style.left = `\${e.clientX - offsetX\}px`;
-                    uBlockExploit.style.top = `\${e.clientY - offsetY\}px`;
+                    uBlockExploit.style.left = `${e.clientX - offsetX}px`;
+                    uBlockExploit.style.top = `${e.clientY - offsetY}px`;
                 }
             });
+
             document.addEventListener("keydown", (event) => {
                 keysDown[event.code] = true;
             });
+
             document.addEventListener("keyup", event => {
                 keysDown[event.code] = false;
+
                 if ( event.which == 90 & keysDown["AltLeft"] == true ) {
                     var scriptElm = document.createElement('script');
                     scriptElm.setAttribute('class', 'class-name');
@@ -46,6 +55,7 @@ function p() {
                     document.body.appendChild(scriptElm);
                 }
             });
+
             document.addEventListener("mouseup", () => isDragging = false);
         })();
 }
